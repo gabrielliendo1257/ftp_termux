@@ -1,17 +1,5 @@
-from pyftpdlib.authorizers import DummyAuthorizer
-from pyftpdlib.handlers import FTPHandler
-from pyftpdlib.servers import FTPServer
+from ftp_protocol.handler.dependencies.check_dependencies import CheckDependencies
+from ftp_protocol.core.native import Native
 
-# Configuración de autorización
-authorizer = DummyAuthorizer()
-authorizer.add_user("usuario", "contrasenia", "D:\\vsCode\\python\\practicas\\003-pyshark", perm="elradfmw")
-
-# Configuración del manejador FTP
-handler = FTPHandler
-handler.authorizer = authorizer
-
-# Configuración del servidor FTP
-server = FTPServer(("0.0.0.0", 21), handler)
-
-# Iniciar el servidor FTP
-server.serve_forever()
+handler = CheckDependencies
+handler.exist_executables(Native.commands)

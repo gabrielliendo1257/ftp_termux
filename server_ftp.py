@@ -4,7 +4,12 @@ from pyftpdlib.servers import FTPServer
 
 # Configuración de autorización
 authorizer = DummyAuthorizer()
-authorizer.add_user("usuario", "contrasenia", "D:\\vsCode\\python\\practicas\\003-pyshark", perm="elradfmw")
+authorizer.add_user(
+    "usuario",
+    "contrasenia",
+    "D:\\vsCode\\python\\practicas\\003-pyshark",
+    perm="elradfmw",
+)
 
 # Configuración del manejador FTP
 handler = FTPHandler
