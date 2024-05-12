@@ -1,13 +1,14 @@
+from typing import Dict
 import subprocess
-import sys
 
 
 class CheckDependencies:
 
     @staticmethod
-    def exist_executables(dependencies):
+    def exist_executables(dependencies: Dict[str, str]):
         for dependency, exec in dependencies.items():
-            subprocess.run(exec, text=True, shell=True)
-            out = subprocess.run("$?", text=True, shell=True)
-            if not bool(out):
+            out = subprocess.run(exec, text=True, shell=True, capture_output=True)
+            if not out.stderr:
+                print(f"La dependencia ´{dependency}´ esta en su sistema.")
+            else:
                 print(f"La dependencia ´{dependency}´ no se reconoce en su sistema.")

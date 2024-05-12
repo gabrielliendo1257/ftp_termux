@@ -2,7 +2,6 @@
 name = "ftp-protocol"
 version = "0.1.0"
 description = ""
-authors = ["Piter N. <gabrielliendo1257@gamil.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]

@@ -1,0 +1,10 @@
+external:
+  linux:
+    - java
+    - mvn
+    - node
+    - which
+  windows:
+    - java
+    - mvn
+    - node

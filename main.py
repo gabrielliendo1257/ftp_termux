@@ -1,5 +1,5 @@
 from ftp_protocol.handler.dependencies.check_dependencies import CheckDependencies
-from ftp_protocol.core.native import Native
+from conf import *
 
 handler = CheckDependencies
-handler.exist_executables(Native.commands)
+handler.exist_executables(DEPENDENCIES_AND_COMMANDS)

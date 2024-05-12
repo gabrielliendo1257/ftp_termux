@@ -7,7 +7,7 @@ authorizer = DummyAuthorizer()
 authorizer.add_user(
     "usuario",
     "contrasenia",
-    "D:\\vsCode\\python\\practicas\\003-pyshark",
+    "D:\\",
     perm="elradfmw",
 )
 
@@ -19,4 +19,10 @@ handler.authorizer = authorizer
 server = FTPServer(("0.0.0.0", 21), handler)
 
 # Iniciar el servidor FTP
-server.serve_forever()
+try:
+    # Iniciar el servidor FTP
+    server.serve_forever()
+except KeyboardInterrupt:
+    print("Cerrando el servidor FTP...")
+    server.close_all()
+    server.stop()
