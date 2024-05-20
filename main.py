@@ -1,5 +1,9 @@
-from ftp_protocol.handler.dependencies.check_dependencies import CheckDependencies
+from ftp_protocol.commands import Init
+from shell.command.view.handler import view_selection
 from conf import *
 
-handler = CheckDependencies
-handler.exist_executables(DEPENDENCIES_AND_COMMANDS)
+init = Init()
+
+if init.success:
+    buffer = sys.argv
+    view_selection(arguments=buffer)
