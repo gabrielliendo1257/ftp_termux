@@ -7,11 +7,19 @@ from typing import Dict, List
 class CommandInterface(ABC):
     _commands: Dict[str, CommandInterface] = dict()
     _name: str = None
-    _buffer: str = None
+    _buffer: List[str] = None
 
     @classmethod
-    def set_buffer(cls, data: str):
+    def set_buffer(cls, data: List[str]):
         cls._buffer = data
+
+    @classmethod
+    def get_params(cls):
+        return cls._buffer
+
+    @classmethod
+    def get_args(cls):
+        return cls._buffer[1::]
 
     @classmethod
     def add_command(cls, command: CommandInterface | List[CommandInterface]):
@@ -42,7 +50,15 @@ class SetCommand(CommandInterface):
     _name = "set"
 
     def execute(self):
-        print("Ejecutando el comando set")
+        if len(CommandInterface.get_args()) == 0:
+            print("No se introdujeron parametros.")
+            print(
+                "Para ejecutar el manual de ayuda ejecute ==> ", self._name, " --help"
+            )
+        else:
+            print(CommandInterface.get_params())
+            print("Ejecutando set")
+            print("Con parametros: ", CommandInterface.get_params()[1::])
 
 
 class GetCommand(CommandInterface):
@@ -50,3 +66,4 @@ class GetCommand(CommandInterface):
 
     def execute(self):
         print("Ejecutando el comando get")
+        print("Con parametros: ", CommandInterface.get_params()[1::])

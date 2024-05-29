@@ -15,6 +15,7 @@ EXTERNAL_DEPENDENCY_FILE = os.path.join(BASE_DIR, "external.yml")
 SYSTEM = NativeSO.get_platform()
 
 dependencies = []
+os_obj: NativeSO = None
 with open(os.path.join(BASE_DIR, EXTERNAL_DEPENDENCY_FILE), "r") as file:
     data_external = yaml.safe_load(file)
     linux_dependencies = data_external["external"]["linux"]
@@ -32,11 +33,12 @@ with open(os.path.join(BASE_DIR, EXTERNAL_DEPENDENCY_FILE), "r") as file:
         sys.exit(-3)
 
 dpn_comnd: Dict[str, str] = {}
+str_command = os_obj.shell_exec + os_obj.parameter + commands["check_dependencies"]
 for exec in dependencies:
-    dpn_comnd[exec] = regex.sub(exec, commands["check_dependencies"])
+    dpn_comnd[exec] = regex.sub(exec, str_command)
 
 DEPENDENCIES_AND_COMMANDS = dpn_comnd
 
-FTP_HOST_WEB = commands["ftp_host_web"]
+FTP_HOST_NET = commands["ftp_host_web"]
 FTP_HOST_LOCAL = commands["ftp_host_local"]
 FTP_PORT = commands["ftp_port"]

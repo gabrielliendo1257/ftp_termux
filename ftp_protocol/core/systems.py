@@ -8,16 +8,15 @@ class windowsSystem(NativeSO):
 
     _dependencies: str = None
     shell_exec: str = "powershell.exe "
+    parameter = "-Command "
     _instance = None
 
     def get_commands(self):
 
         return {
-            "check_dependencies": self.shell_exec + "Get-Command $[]",
-            "ftp_host_web": self.shell_exec
-            + "(Invoke-WebRequest -Uri 'https://api64.ipify.org?format=json').Content | ConvertFrom-Json | Select-Object -ExpandProperty ip",
-            "ftp_host_local": self.shell_exec
-            + "(Get-NetIPAddress | Where-Object { $_.AddressFamily -eq 'IPv4' -and $_.InterfaceAlias -eq 'Ethernet' }).IPAddress",
+            "check_dependencies": "Get-Command $[]",
+            "ftp_host_web": "(Invoke-WebRequest -Uri 'https://api64.ipify.org?format=json').Content | ConvertFrom-Json | Select-Object -ExpandProperty ip",
+            "ftp_host_local": "(Get-NetIPAddress | Where-Object { $_.AddressFamily -eq 'IPv4' -and $_.InterfaceAlias -eq 'Ethernet' }).IPAddress",
             "ftp_port": 21,
         }
 

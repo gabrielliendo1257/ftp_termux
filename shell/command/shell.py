@@ -1,16 +1,14 @@
 from typing import List
 from shell.command.commands import *
-from shell.dist.commands import *
+from shell.command.core.state import *
+import shlex
 
 
 class Shell:
 
     success = True
     _commands = list()
-
-    def __init__(self, buffer: str = None, promp: str = None) -> None:
-        self._buffer = buffer
-        self._promp = promp
+    state: State = None
 
     @property
     def buffer(self):
@@ -18,6 +16,7 @@ class Shell:
 
     @buffer.setter
     def buffer(self, value):
+        value = shlex.split(value)
         self._buffer = value
 
     @property
@@ -28,20 +27,25 @@ class Shell:
     def promp(self, promp: str):
         self._promp = promp
 
-    def register(value):
-        CommandInterface.add_command([SetCommand(), GetCommand(), CutCommand()])
+    def register(self):
+        CommandInterface.add_command([SetCommand(), GetCommand()])
 
     def init(self):
         self.register()
-
         CommandInterface.add_command(self._commands)
         CommandInterface.set_buffer(self._buffer)
-        exist_command = self._buffer in CommandInterface.get_commands()
-        if not exist_command:
-            self.success = False
-            print("El comando nose reconoce ==> " + self._buffer)
-        else:
-            self.success = True
-            if self.success:
-                command_obj = CommandInterface.get_commands().get(self._buffer)
-                command_obj.execute()
+        try:
+            exist_command = self._buffer[0] in CommandInterface.get_commands()
+            Shell.success = True
+        except IndexError:
+            Shell.success = False
+        if Shell.success:
+            if not exist_command:
+                self.state = ErrorState()
+                self.state.on_object = self
+                self.state.on_error()
+            else:
+                self.state = SuccessState()
+                self.state.parameters = self.buffer
+                self.state.on_object = self
+                self.state.on_success()

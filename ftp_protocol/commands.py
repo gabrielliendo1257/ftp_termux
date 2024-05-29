@@ -59,7 +59,7 @@ class Init:
         self._success = value
 
     def process(self, exec) -> subprocess.CompletedProcess[str]:
-        return subprocess.run(exec, text=True, shell=True, capture_output=True)
+        return subprocess.run(exec, text=True, capture_output=True)
 
     def _process_is_successful(self):
         if self.process.stderr:
