@@ -3,7 +3,7 @@ name = "ftpsend"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Piero Andre",email = "gabrielliendo1257@gmail.com"}
+    {name = "Martin",email = "martingalesa43@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.11"
