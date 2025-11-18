@@ -6,13 +6,20 @@ authors = [
     {name = "Piero Andre",email = "gabrielliendo1257@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 dependencies = [
+    "pyftpdlib (==2.1.0)",
+    "sqlalchemy (==2.0.44)",
+    "pymysql (==1.1.2)",
+    "flet (==0.28.3)"
 ]
 
 [tool.poetry]
 packages = [{include = "ftpsend", from = "src"}]
 
+[tool.poetry.scripts]
+fasttp = "ftpsend.presentation.cli.main:main"
+fasttpgui = "ftpsend.presentation.gui.main:run"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

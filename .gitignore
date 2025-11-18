@@ -284,3 +284,5 @@ poetry.toml
 
 # LSP config files
 pyrightconfig.json
+
+mi_log.log
